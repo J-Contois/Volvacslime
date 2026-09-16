@@ -1,0 +1,11 @@
+/Binaries
+/Intermediate
+/DerivedDataCache
+/Saved
+/.vs
+*.sln
+*.slnx
+.vsconfig
+/Content/ExternalContent
+/Content/__ExternalActors__/ExternalContent
+/Content/__ExternalObjects__/ExternalContent
