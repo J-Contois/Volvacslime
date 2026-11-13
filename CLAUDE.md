@@ -22,7 +22,7 @@ Technical documents live in the repository; `docs/README.md` gives the folder of
 ## Hard rules
 
 - Never delete or overwrite assets, push, merge, create issues or PRs without explicit approval.
-- `Config/DefaultEngine.ini`, `Config/DefaultGame.ini` and `Volvacslime.uproject` carry uncommitted changes of the user: do not modify them unless asked.
+- `Config/DefaultEngine.ini` (Python remote execution), `Config/DefaultGame.ini` (EngineWire native MCP) and `Volvacslime.uproject` (EngineWire plugin) carry the setup that lets agents drive the editor: never disable it, and change these files only when asked.
 - Never commit `Binaries/`, `Intermediate/`, `Saved/` or `DerivedDataCache/`.
 - Only one agent drives the Unreal editor at a time.
 - Never put secrets in documents or commits.

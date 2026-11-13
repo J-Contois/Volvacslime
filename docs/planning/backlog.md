@@ -44,7 +44,7 @@ Concept phase (now): T2, T6, T10, T11, T20, T28. Every other ticket of this sect
 |---|---|---|---|---|
 | unreal-engineer | S | Backlog | T11, T2 | - |
 
-- **Context:** recommendations, not applied: keep Lumen; disable hardware ray tracing; keep Substrate pending T1; disable the ChaosVehicles plugin (Chaos physics and Geometry Collection stay). This touches `Config/DefaultEngine.ini` and `Volvacslime.uproject`, which, like `Config/DefaultGame.ini`, hold uncommitted user changes: do not edit them before T11.
+- **Context:** recommendations, not applied: keep Lumen; disable hardware ray tracing; keep Substrate pending T1; disable the ChaosVehicles plugin (Chaos physics and Geometry Collection stay). This touches `Config/DefaultEngine.ini` and `Volvacslime.uproject`, which also carry the editor agent setup (Python remote execution, EngineWire): keep it.
 - **Acceptance criteria:**
   - [ ] Ray tracing off and ChaosVehicles disabled; the project opens and the test map runs.
   - [ ] Chaos destruction still works.
@@ -138,15 +138,14 @@ Concept phase (now): T2, T6, T10, T11, T20, T28. Every other ticket of this sect
   - [ ] Tuning parameters: mass, thresholds, temperatures, belly capacity.
   - [ ] Edge cases listed; taste input and output defined.
 
-### T11 - Review pending changes and repository conventions
+### T11 - Repository conventions and Git LFS
 
 | Owner | Size | Status | Depends on | Waits for decision |
 |---|---|---|---|---|
 | unreal-engineer with producer; the user decides | S | Backlog | - | - |
 
-- **Context:** uncommitted changes in `Config/DefaultEngine.ini`, `Config/DefaultGame.ini` and `Volvacslime.uproject`; conventions only proposed; Git LFS unverified.
+- **Context:** the pending config changes (editor agent setup) were committed on 2026-11-13; conventions are only proposed; Git LFS is unverified.
 - **Acceptance criteria:**
-  - [ ] The user commits or reverts the pending changes.
   - [ ] Git LFS status checked.
   - [ ] Conventions and branch naming approved in the bible.
 

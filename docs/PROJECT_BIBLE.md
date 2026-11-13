@@ -92,9 +92,8 @@ Design questions are tracked as decisions in the [decision log](design/decisions
 | Q7 | Budgets and minimum hardware | Open (T2) |
 | Q8 | Art direction conventions and naming: "Specimen" look rules, folder and asset naming | Open |
 | Q10 | Git LFS for `.uasset`, `.umap`, `.blend` and textures? (the GDD requires versioning from day one) | Open (T11) |
-| Q11 | Uncommitted changes in `Config/DefaultEngine.ini`, `Config/DefaultGame.ini` and `Volvacslime.uproject`: what are they, and who commits them? | Open (T11) |
 | Q17 | "Build": assembly by sticking and freezing, or base customization? | Open (DEC-06) |
 | Q18 | Does the slime speak, make sounds or stay mute; does the creator appear on screen? | Open (G9) |
 | Q19 | Title "Volvacslime" confirmed? GDD version number and revision history to fix | Open (C1) |
 
-Closed here: Q9 (see Documentation), Q21 (the slime mesh in `Characters/Slime` is a test, see Phase). Moved to the decision log: Q12 (DEC-05), Q13 (DEC-06), Q14 (DEC-07), Q15 (DEC-08), Q16 (DEC-09), Q20 (DEC-10).
+Closed here: Q9 (see Documentation), Q11 (the pending config changes were the editor agent setup, committed 2026-11-13), Q21 (the slime mesh in `Characters/Slime` is a test, see Phase). Moved to the decision log: Q12 (DEC-05), Q13 (DEC-06), Q14 (DEC-07), Q15 (DEC-08), Q16 (DEC-09), Q20 (DEC-10).

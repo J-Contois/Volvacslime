@@ -16,7 +16,7 @@
 - Branch in use: `feature-chaosBuilding`; main branch: `main`.
 - `Source/Volvacslime`: empty default module (`Volvacslime.Build.cs`, `Volvacslime.cpp`, `Volvacslime.h`).
 - Rendering config as found: DX12 and SM6, Lumen, virtual shadow maps, ray tracing, Substrate. The ChaosVehicles plugin is enabled. Recommended changes are in ticket T3, not applied.
-- Uncommitted user changes: `Config/DefaultEngine.ini`, `Config/DefaultGame.ini`, `Volvacslime.uproject` (do not edit, see T11).
+- Editor agent setup (committed 2026-11-13): Python remote execution in `Config/DefaultEngine.ini` (Unreal MCP), EngineWire native MCP on port 3000 in `Config/DefaultGame.ini`, EngineWire plugin enabled in `Volvacslime.uproject`. The EngineWire plugin is installed on the engine side, not in the repository: a machine without it reports a missing plugin.
 
 ## Content layout (`Content/_Volvacslime`)
 
