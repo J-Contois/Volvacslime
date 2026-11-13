@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit(docs/**)"
+    ],
+    "deny": [
+      "Bash(git push --force *)",
+      "Bash(git push -f *)",
+      "mcp__notion__notion-delete-pages",
+      "mcp__notion__notion-delete-databases",
+      "mcp__Notion__notion-delete-pages",
+      "mcp__Notion__notion-delete-databases",
+      "mcp__claude_ai_Notion__notion-delete-pages",
+      "mcp__claude_ai_Notion__notion-delete-databases",
+      "mcp__2e56d0f0-7ac1-4040-9748-24bf8ee44942__notion-delete-pages",
+      "mcp__2e56d0f0-7ac1-4040-9748-24bf8ee44942__notion-delete-databases",
+      "Read(./.env)",
+      "Read(./.env.*)"
+    ]
+  }
+}

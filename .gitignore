@@ -9,3 +9,19 @@
 /Content/ExternalContent
 /Content/__ExternalActors__/ExternalContent
 /Content/__ExternalObjects__/ExternalContent
+
+# Claude Code local files
+CLAUDE.local.md
+.claude/settings.local.json
+.claude/agent-memory-local/
+
+# Generated Notion import files (python Scripts/export_notion.py) and crash dumps
+/exports/
+*.stackdump
+
+# Studio run log and hook state (local to each machine)
+.claude/studio/runs.jsonl
+.claude/studio/state/
+
+# Python bytecode cache (Scripts/)
+__pycache__/

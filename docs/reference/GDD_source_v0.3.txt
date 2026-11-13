@@ -1,0 +1,527 @@
+Game Design Document
+Volvacslime
+Escape game sandbox en 3D - Unreal Engine 5.8.2
+
+
+
+Titre
+ | Volvacslime
+ | Version
+ | 0.1
+ | Date de révision
+ | 22 octobre 2026
+ | Auteur
+ | Jonathan Contois
+ | Statut
+ | Pré-production : fondations en cours de validation
+ | Document associé
+ | Carnet de conception Volvacslime v0.1
+ | 
+
+Historique des révisions
+Version
+ | Date
+ | Auteur
+ | Modifications
+ | 0.1
+ | 20 octobre 2026
+ | Jonathan Contois
+ | Première version : vision, boucles, systèmes, biomes, énigmes, lore, architecture, plan.
+ | 0.2
+ | 22 octobre 2026
+ | Jonathan Contois
+ | Cadre de production précisé (échéance, temps disponible). Ajout de la catastrophe et de ses conséquences dans le monde.
+ | 
+Table des matières
+ TOC \h \u \z \t "Heading 1,1,Heading 2,2,Heading 3,3,Heading 4,4,Heading 5,5,Heading 6,6,"I. Fiche d’identité3
+A. Jeu3
+B. Cadre du projet3
+II. Univers et vision3
+A. Prémisse3
+B. La catastrophe3
+C. Conséquences dans le monde4
+D. Objectif du joueur4
+E. Pitch4
+III. Gameplay de base5
+A. Verbes de base5
+B. Système de base5
+A débattre pour la suite :6
+IV. Caméra7
+V. Boucle du jeu7
+VI. Le slime : masse et états de la matière8
+VII. Mécanique de base8
+VIII. Système9
+A. Propriété de craft10
+B. Compétences10
+C. Build10
+D. Sauvegarde11
+E. Biomes et structure du bâtiment11
+F. Enigmes12
+G. Lore et fins multiples13
+1. Lore et fins multiples13
+2. Fragments de souvenir13
+3. Fins13
+IX. Architecture technique (Unreal Engine 5.8.2)14
+1. Choix technique14
+X. Plan de développement15
+XI. Contenu optionnel et questions ouvertes16
+A. Optionnel16
+B. Questions ouvertes17
+
+Fiche d’identité
+Jeu
+Élément
+ | Choix
+ | Titre
+ | Volvacslime
+ | Genre
+ | Sandbox, escape game, exploration
+ | Dimension
+ | 3D
+ | Mode
+ | Solo
+ | Plateforme
+ | PC
+ | Moteur
+ | Unreal Engine 5.8.2
+ | Références
+ | Moi quand je me réincarne en slime, Luigi’s Mansion, Kirby
+ | 
+Cadre du projet
+Élément
+ | Valeur
+ | Nature
+ | Projet académique « fil rouge »
+ | Équipe
+ | Une personne
+ | Compétences
+ | Programmation Blueprint et C++
+ | Compétences absentes
+ | Art 2D et 3D, animation, son
+ | 
+Univers et vision
+Prémisse
+Suite à une catastrophe et à l’abandon immédiat de son créateur, un slime reste seul et erre dans un bâtiment de plusieurs pièces à taille humaine. Portes, poignées et meubles sont immenses pour lui.
+La catastrophe
+
+Le système de pompage et de refroidissement du sous-sol est tombé en panne. Le bâtiment s’est verrouillé automatiquement (protocole de confinement) et le personnel a évacué en urgence.
+Le slime est un prototype non enregistré. Il ne figurait pas sur la liste d’évacuation et son créateur est parti sans lui : c’est l’abandon.
+Le lieu est un laboratoire installé dans un ancien manoir. Il mêle des pièces domestiques reconverties et des installations techniques (pompes, chaufferie, salle des serveurs).
+Conséquences dans le monde
+Tout élément du décor découle de la catastrophe. Le niveau d’eau est un état du monde que le joueur peut modifier ; il ne monte jamais de lui-même et il n’existe aucun compte à rebours global.
+
+Ce que voit le joueur
+ | Pourquoi
+ | Portes verrouillées
+ | Le protocole de confinement coupe les accès jusqu’à sa levée.
+ | Un sous-sol inondé
+ | Les pompes sont arrêtées et la nappe a rempli le sous-sol. Des vannes et des pompes permettent de faire varier le niveau d’eau d’une zone, dans les deux sens.
+ | Des zones trop chaudes
+ | Les machines (chaufferie, serveurs) chauffent sans refroidissement.
+ | Des zones trop froides
+ | Un circuit de froid est resté actif ou déréglé.
+ | Des courants électriques, une eau conductrice
+ | Des câbles dégradés dans un sous-sol inondé.
+ | Lumières de secours, goutte-à-goutte, bourdonnement qui s’éteint
+ | Alimentation de secours et pompes à l’arrêt.
+ | 
+Objectif du joueur
+Un slime, abandonné par son créateur après une catastrophe, explore un bâtiment à taille humaine : chaque objet qu'il avale est à la fois un outil, un indice et un souvenir.
+Pitch
+Volvacslime est un jeu d’énigmes à la troisième personne où tu incarnes un slime oublié dans un laboratoire abandonné. Tu apprends à comprendre la matière en l’avalant, en la mélangeant et en la jetant, pour trouver la sortie.
+Gameplay de base
+
+Verbes de base
+Le joueur agit sur le monde avec trois verbes. La physique du jeu (Chaos) permet de déplacer et de détruire des objets.
+
+Verbe
+ | Description
+ | Aspirer
+ | Le slime attire un objet et le stocke.
+ | Recracher
+ | Le slime rend ce qu’il a stocké.
+ | Jeter
+ | Le slime lance un objet, qui obéit à la physique et peut se briser.
+ | 
+Système de base
+
+Les cinq systèmes suivants sont la base du gameplay. Ils sont acceptés comme point de départ et seront testés en prototype avant d’être détaillés.
+
+Système
+ | Principe
+ | Statut
+ | Masse et cohésion
+ | Le slime a une seule ressource, sa masse, qui détermine sa vie, sa taille, la capacité de son ventre et sa force. La cohésion est une énergie d’effort : elle se dépense en agissant et se récupère en se reposant.
+ | À prototyper
+ | Garder, goûter, digérer
+ | Garder range un objet dans le ventre. Goûter révèle ses propriétés sans le détruire. Digérer le détruit pour en tirer de la masse, une substance ou un souvenir.
+ | À prototyper
+ | Objets et substances
+ | Les objets (solides) s’aspirent, se jettent et se déposent. Les substances (liquides, poudres) se stockent en réserve, se crachent et se mélangent.
+ | À prototyper
+ | États de la matière
+ | Le slime peut devenir liquide, gelé ou vapeur selon la température. Il revient automatiquement à l’état liquide, pour ne jamais rester bloqué.
+ | À prototyper
+ | Réactions entre propriétés
+ | Chaque objet porte des propriétés (chaud, froid, humide, conducteur, collant). Des règles stockées en données les font réagir entre elles. Exemple : froid + humide donne du gel.
+ | À prototyper
+ | 
+A débattre pour la suite :
+
+Référence
+ | Utilisation
+ | Originalité
+ | Moi quand je me réincarne en slime 
+ | Le slime qui absorbe et acquiert des propriétés
+ | Pas de progression par niveaux : la progression vient des objets digérés et de la compréhension du lieu
+ | Luigi’s Mansion
+ | Un bâtiment-puzzle, de l’aspiration, l’atmosphère
+ | Aspirer sert à résoudre et à construire, pas seulement à capturer 
+ | Kirby
+ | Avaler, puis recracher ou copier
+ | Pas de copie de pouvoir : on retient des propriétés physiques combinables
+ | 
+Trois piliers de design. Toute idée qui ne sert pas l'un d'eux est écartée ou repoussée.
+Le corps est la ressource. Vie, faim, inventaire et endurance sont lus sur une seule chose visible : la masse du slime.
+La matière répond. Chaque objet a des propriétés (chaud, froid, conducteur, collant, fragile) qui réagissent entre elles de façon systémique, pas par script.
+Comprendre en digérant. Le lore et la progression passent par la digestion d'objets, pas par des notes à ramasser.
+Caméra
+Caméra basse et proche, qui s'adapte à la masse du slime. Le corps est ta ressource principale (pilier 1) : le joueur doit le voir rétrécir, grossir, geler ou s'étaler.
+
+Règles de caméra à prévoir
+•       Distance proportionnelle à la masse : plus le slime est gros, plus la caméra recule et le champ de vision s'élargit.
+•       Collision : la caméra se rapproche automatiquement sous un meuble, dans un conduit ou une serrure, puis repasse en vue très proche (quasi subjective) dans les passages minuscules.
+•       Mode visée : un appui maintenu passe la caméra par-dessus l'épaule avec un réticule, pour aspirer ou jeter avec précision et afficher la trajectoire.
+•       Confort : retard de caméra léger, secousse à l'impact réglable, option pour la réduire.
+Boucle du jeu
+Le jeu repose sur trois boucles imbriquées : un geste de quelques secondes, une salle de quelques minutes, une partie de plusieurs heures. Chacune doit être amusante seule.
+
+Boucle de 30 secondes : essayer quelque chose
+Repérer un objet intéressant (visuellement lisible : métal brillant, glaçon, flaque, colle).
+ L'aspirer : le slime en retient la propriété et la masse.
+L'utiliser : cracher, jeter, laisser tomber, ou combiner avec une autre propriété dans le ventre.
+Observer la réaction du monde (casse, conduit, gèle, colle, s'enflamme) et en tirer une conclusion.
+Boucle d'une salle : 5 à 15 minutes
+Arriver dans la salle et repérer l'obstacle (porte verrouillée, circuit coupé, passage trop étroit).
+ Fouiller pour trouver des ressources et comprendre les règles locales (température, danger).
+Expérimenter jusqu'à trouver au moins une solution ; la salle en admet plusieurs, une évidente, une inventive.
+Récompense : une nouvelle zone ou un raccourci, une propriété rare, un fragment de souvenir.
+Boucle de la partie : plusieurs heures
+Survivre : la masse baisse lentement (faim, dégâts), ce qui pousse à avancer sans punir l'exploration.
+ Revenir à un point de repos pour sauvegarder, digérer et se reconstituer.
+ Ouvrir de nouveaux biomes grâce aux propriétés rapportées des précédents.
+Assembler le lore et choisir une fin.
+Le slime : masse et états de la matière
+La masse est la seule ressource du joueur : elle fait office de vie, de réserve de nourriture, de capacité d'inventaire et de taille dans le monde. Un seul chiffre central, visible sur le corps du personnage, remplace quatre jauges.
+Masse
+Rôle
+ | Effet de la masse
+ | Compromis
+ | Vie
+ | Les dégâts retirent de la masse ; le slime rétrécit visiblement
+ | Petit, il est fragile mais passe partout
+ | Faim
+ | La masse baisse lentement ; digérer de la matière organique la restaure
+ | Manger pousse à explorer, pas à attendre
+ | Inventaire
+ | La capacité du ventre dépend de la masse
+ | Gros, il stocke plus mais ne passe plus dans les petits passages
+ | Taille
+ | Plus de masse = plus de force pour déplacer des objets
+ | Plus lourd, plus lent et plus bruyant
+ | À masse minimale, il ne reste qu'une petite goutte qui doit se reconstituer à un point de repos : c'est le « game over » doux, sans perte de progression.
+États de la matière. La température change la forme du corps, donc ce que le slime peut faire.
+État
+ | Condition
+ | Pouvoirs
+ | Faiblesses
+ | Liquide (normal)
+ | Température ambiante
+ | Passe sous les portes et dans les grilles, s'étale
+ | Fragile, absorbe les chocs mal
+ | Gelé
+ | Frigo, chambre froide, glace
+ | Dur : casse le verre, sert de projectile, supporte un poids
+ | Lent, ne se faufile plus
+ | Vapeur
+ | Chaufferie, cuisine, vapeur d'eau
+ | Flotte, monte par les conduits d'aération
+ | Perd de la masse en s'évaporant, peu de contrôle
+ | La transition est progressive (la matière durcit ou ramollit sur quelques secondes) et le joueur peut la provoquer volontairement : se geler pour casser une vitre, puis se réchauffer pour passer sous une porte.
+Mécanique de base
+Trois verbes portent le jeu : aspirer, recracher, jeter. Ils doivent être précis, rapides et satisfaisants avant tout autre système.
+
+Verbe
+ | Comportement
+ | Règles de design
+ | Aspirer
+ | Maintenir la touche attire les objets d'un cône devant le slime ; ils sont absorbés si leur taille est inférieure à la masse libre du ventre
+ | Taille et poids limitent ce qu'on peut aspirer ; un objet trop lourd peut être tiré ou traîné ; un objet fixé résiste
+ | Recracher
+ | Libère l'objet absorbé en jet, avec force réglable ; garde ses propriétés
+ | Un objet recraché inflige des dégâts selon sa masse, sa vitesse et sa matière (verre, métal, glace)
+ | Jeter
+ | Lance l'objet avec une trajectoire visible, plus lente mais plus précise que le crachat
+ | Sert à atteindre des interrupteurs, casser des vitres, attirer l'attention
+ | Digérer
+ | Transforme l'objet stocké en masse, en propriété ou en fragment de souvenir
+ | Prend du temps ; ne peut pas être annulé ; certains objets sont toxiques
+ | 
+Physique et chaos. On s'appuie sur la physique d'Unreal (Chaos) pour que les objets aient un poids, rebondissent, se brisent et s'empilent. Le chaos n'est pas décoratif :
+casser un objet révèle ce qu'il contient ou le rend utilisable (une vitre brisée libère un passage, une caisse livre son contenu) ;
+un objet lourd peut servir de poids sur un interrupteur, de pont ou de barricade ;
+certains objets fragiles sont la seule façon de transporter un liquide ou un produit dangereux ;
+détruire trop de choses a un coût (bruit, effondrement, perte de ressources), pour que le chaos reste un choix.
+Principe de lisibilité. Le joueur doit pouvoir lire à l'œil la matière d'un objet (métal brillant, glace translucide, bois, papier) pour deviner ce qui va se passer avant d'essayer.
+Système
+Tous les systèmes sont branchés sur la masse et sur la température, pour que le joueur lise l'état du slime sans menu.
+Système
+ | Fonctionnement
+ | Lecture à l'écran
+ | Vie
+ | Les dégâts (chute, écrasement, acide, feu, gel cassant) retirent de la masse
+ | Taille du corps ; pas de barre de vie
+ | Faim
+ | La masse baisse lentement ; la matière organique et certains liquides la restaurent ; la matière toxique la réduit
+ | Le corps devient plus terne et plus plat quand il a faim
+ | Endurance (cohésion)
+ | Sauter, aspirer longtemps, jeter fort la consomment ; à zéro, le slime s'étale, devient lent et saute peu ; elle revient au repos
+ | Corps qui se déforme, jauge discrète autour du réticule
+ | Température
+ | Chaque zone a une température ambiante, chaque objet en a une ; le slime l'échange par contact et change d'état aux seuils
+ | Couleur et texture du corps, buée ou givre
+ | Inventaire
+ | Le ventre est un volume limité par la masse ; les objets y flottent, visibles par transparence
+ | Objets dans le corps, roue de sélection pour en choisir un
+ | Propriété de craft
+Chaque objet porte une ou plusieurs propriétés (conducteur, collant, inflammable, magnétique, acide, lourd, fragile). Digérer un objet fait retenir sa propriété pendant un temps limité. Le craft consiste à combiner deux objets ou propriétés dans le ventre :
+Combinaison
+ | Résultat
+ | Usage
+ | Eau + sel
+ | Liquide conducteur
+ | Fermer un circuit, activer une prise
+ | Colle + papier
+ | Tampon collant
+ | Fixer un objet au plafond ou à un mur
+ | Glace + métal
+ | Projectile froid et dur
+ | Briser une vitre ou un verrou
+ | Alcool + étincelle
+ | Substance inflammable (danger)
+ | Brûler un obstacle, risque de perdre de la masse
+ | La liste est un point de départ : l'important est la règle (propriétés + réactions), pas le catalogue. Les recettes se découvrent en expérimentant et s'inscrivent dans un carnet.
+Compétences
+Les compétences sont des mutations permanentes obtenues en digérant un objet rare (un aimant donne le magnétisme, un ressort le super-saut, une ventouse l'adhérence au plafond). Chaque mutation occupe de la place dans le ventre : le joueur choisit lesquelles garder actives, ce qui crée un vrai compromis.
+Build
+Le build est une construction par assemblage : coller et geler des objets pour bâtir escaliers, ponts, tours de caisses ou barrages. Aucun menu de construction : on pose, on colle, on fige. Un aménagement du point de repos (personnaliser son nid) peut s'y ajouter plus tard.
+Sauvegarde
+Sauvegarde automatique à chaque changement de salle, et sauvegarde manuelle aux points de repos (là où le slime se reconstitue). On enregistre l'état du joueur (masse, inventaire, mutations, recettes, souvenirs) et celui des objets clés du monde ; la position exacte de chaque débris n'est pas conservée.
+Biomes et structure du bâtiment
+Le bâtiment est un laboratoire-manoir abandonné dont chaque zone est un biome : une température, des ressources, des règles et des dangers propres. On y circule comme dans un metroidvania : des raccourcis et des portes qui s'ouvrent grâce à des propriétés ou mutations rapportées d'ailleurs.
+
+Biome
+ | Température
+ | Ressources
+ | Dangers
+ | Rôle dans la progression
+ | Hall et bureaux (départ)
+ | Ambiante
+ | Papier, objets légers, nourriture basique
+ | Chutes, objets qui tombent
+ | Apprendre aspirer, jeter, casser
+ | Cuisine
+ | Chaude
+ | Nourriture, eau, alcool, ustensiles
+ | Feu, vapeur, huile
+ | Première nourriture, états chaud et vapeur
+ | Chambre froide
+ | Très froide
+ | Glace, viande, bacs
+ | Gel qui ralentit
+ | Apprendre l'état gelé
+ | Serre
+ | Humide, tiède
+ | Plantes, terre, eau
+ | Végétation qui bloque, spores
+ | Matière organique et toxique
+ | Sous-sol inondé
+ | Fraîche
+ | Eau, rouille, métal
+ | Courants, électricité dans l'eau
+ | Conduction, objets flottants
+ | Salle des serveurs
+ | Chaude
+ | Métal, câbles, composants
+ | Décharges, surchauffe
+ | Électricité, mutations techniques
+ | Laboratoire du créateur
+ | Variable
+ | Échantillons, dossiers, souvenirs
+ | Systèmes de sécurité
+ | Cœur du lore et accès aux fins
+ | 
+Principes de level design :
+Un biome, une idée : chaque zone enseigne une règle de la matière avant de la combiner avec les autres.
+ Boucles et raccourcis : le joueur revient souvent dans le hall, qui sert de pivot ; un raccourci ouvert par une salle difficile récompense l'effort.
+Échelle humaine : meubles, portes et poignées sont énormes pour le slime, ce qui crée l'ambiance et les passages secrets (sous les portes, dans les conduits).
+Zones de repos : un point de repos par biome, signalé visuellement, avec un peu de nourriture à proximité.
+
+Enigmes
+Les énigmes sont systémiques : le jeu ne vérifie pas une solution, il simule des règles, et plusieurs chemins mènent au même résultat. C'est ce qui distingue un sandbox d'un escape game classique.
+
+Principes de conception :
+Un obstacle, au moins deux solutions : une solution évidente (le joueur la trouve en cinq minutes) et une inventive (qui récompense l'expérimentation).
+Les règles sont enseignées avant d'être combinées : une salle sûre montre qu'un objet gelé casse du verre avant qu'une autre en fasse dépendre un passage.
+Indices dans le monde : traces de givre, câbles brûlés, étiquettes, schémas du créateur.
+Pas de blocage définitif : le joueur peut toujours revenir à un point de repos ou obtenir une ressource de secours.
+
+Mécaniques d'énigme propres au slime
+Mécanique
+ | Principe
+ | Exemple
+ | Se diviser
+ | Laisser un morceau de soi comme poids, appât ou relais, tout en continuant
+ | Un fragment tient un interrupteur pendant que le corps passe par la porte ouverte
+ | Se faufiler
+ | Passer par serrures, grilles, tuyaux et prises, avec un changement de point de vue
+ | Traverser une serrure pour actionner le mécanisme de l'autre côté
+ | Changer d'état
+ | Geler, chauffer ou s'évaporer pour modifier ses capacités
+ | Geler pour casser une vitre, se réchauffer pour filer sous la porte
+ | Réaction en chaîne
+ | Combiner les propriétés du monde
+ | Eau + électricité, feu + papier, froid + verre
+ | Chaos dirigé
+ | Détruire intelligemment pour ouvrir un passage
+ | Faire tomber une étagère pour former un pont
+ | 
+Exemples par biome :
+Cuisine : une porte de service est fermée par un verrou thermique ; le joueur doit chauffer un objet métallique à la cuisinière et le recracher dessus.
+Chambre froide : un pont de glace manque ; il faut remplir un bac d'eau, le pousser dans la chambre et attendre qu'il gèle.
+Sous-sol inondé : un compartiment électrique est inaccessible ; une chaîne de conduction (eau + sel + câble) active une porte à distance.
+Salle des serveurs : la surchauffe désactive une alarme ; l'ouvrir de façon bruyante ou la désactiver par le froid sont deux voies différentes.
+
+Lore et fins multiples
+Le lore passe par la mécanique centrale : digérer un objet fait revivre un fragment de souvenir. Le joueur ne lit pas des notes, il goûte l'histoire du bâtiment.
+
+Lore et fins multiples
+Le slime est un prototype de « matière-mémoire » : une substance qui conserve ce qu'elle absorbe. Son créateur l'a abandonné après la catastrophe, soit parce qu'il l'a cru perdu, soit parce qu'il voulait qu'il disparaisse. Cette hypothèse justifie directement la mécanique : si le slime se souvient de ce qu'il digère, digérer devient une enquête.
+
+Fragments de souvenir
+Type d'objet
+ | Fragment révélé
+ | Photo, cadre
+ | Une scène du passé vue depuis la pièce, brève et silencieuse
+ | Badge, carte d'accès
+ | Un nom, une fonction, un accès à une zone
+ | Carnet, dossier
+ | Une phrase ou un schéma du créateur, jamais un long texte
+ | Enregistrement, appareil audio
+ | Quelques secondes de voix
+ | Échantillon, sujet de laboratoire
+ | Une information sur le projet et sur d'autres sujets
+ | 
+Les fragments sont classés par thème dans une archive consultable : le créateur, le projet, la catastrophe, les autres sujets, le slime lui-même. Le joueur reconstitue l'histoire dans l'ordre qu'il veut.
+
+Fins
+Fin
+ | Condition indicative
+ | Idée
+ | S'échapper
+ | Atteindre la sortie avec peu de fragments
+ | Liberté sans réponse
+ | Rester
+ | Rester dans le bâtiment après avoir tout compris
+ | Choisir son foyer
+ | Retrouver le créateur
+ | Avoir assez de fragments et trouver sa trace
+ | Confrontation, pardon ou rejet
+ | Prendre sa place
+ | Avoir réuni toutes les mutations et tout l'archive
+ | Le slime devient ce qu'il a été fabriqué pour remplacer
+ | Les conditions précises (nombre de fragments, choix en fin de partie) sont à fixer avec l'histoire.
+Architecture technique (Unreal Engine 5.8.2)
+Le jeu repose sur un composant Unreal par fonction du slime et sur un seul sous-système qui applique les réactions entre propriétés ; tout le contenu (propriétés, recettes, mutations, fragments) est défini en données, pas en code.
+
+architecture Unreal : 3 blocs, 7 liens
+
+Le slime lit les objets, combine dans son ventre et échange de la chaleur ; le sous-système de réactions décide de la suite à partir de règles stockées dans les données.
+
+Choix technique
+Besoin
+ | Piste Unreal
+ | Remarque
+ | Physique et destruction
+ | Chaos Physics ; Geometry Collection pour les objets cassables
+ | Limiter le nombre de fragments actifs et leur durée de vie
+ | Aspiration
+ | Détection en cône devant le slime, force physique vers la bouche, absorption à l'arrivée
+ | À prototyper d'abord en Blueprint
+ | Corps du slime
+ | Mesh souple (déformation par matériau), Niagara pour les gouttes
+ | Commencer par un mesh simple dont l'échelle suit la masse
+ | Mouvement
+ | Character Movement Component, réglé par la masse
+ | Évaluer d'autres systèmes de mouvement seulement si le besoin apparaît
+ | Propriétés et réactions
+ | Gameplay Tags, Data Assets, sous-système de monde
+ | Les règles « A + B donne C » vivent dans une Data Table
+ | Compétences
+ | Composants simples ; Gameplay Ability System seulement si les variantes se multiplient
+ | Apprentissage coûteux : à adopter au-delà de cinq compétences
+ | Température
+ | Valeur par acteur et volumes de zone
+ | Pas de simulation globale de chaleur
+ | Entrées
+ | Enhanced Input
+ | Remapping des touches inclus
+ | Sauvegarde
+ | SaveGame, objets clés repérés par Gameplay Tags
+ | Sauvegarde automatique à chaque changement de salle
+ | Niveaux
+ | Un niveau persistant et des sous-niveaux par salle (streaming)
+ | World Partition inutile pour un bâtiment fermé
+ | 
+Ces pistes reposent sur des fonctions stables d'Unreal Engine 5.x ; les détails propres à la 5.8.2 sont à vérifier dans la documentation d'Epic avant de s'engager.
+Plan de développement
+
+Le plan avance par phases, chacune fermée par une porte : on ne passe à la suite que si le critère est atteint. Aucune durée n'est fixée ici, elles dépendent de ton temps et de ton équipe.
+
+feuille de route · 5 phases, 4 portes
+
+Si aspirer, cracher et jeter ne sont pas déjà agréables dans une seule salle, aucun système ajouté après ne rattrapera le jeu.
+
+Première phase :
+Projet Unreal Engine 5.8.2 en 3D, versionné dès le premier jour (Git avec Git LFS, ou Perforce)
+Slime jouable : déplacement, saut, échelle liée à la masse
+Caméra à la troisième personne avec collision
+Aspiration en cône et stockage d'un objet
+Recracher et jeter avec trajectoire visible
+Trois matières d'objets (verre, métal, bois) qui réagissent différemment à la physique
+Une énigme à deux solutions
+Test avec deux personnes extérieures au projet
+
+Contenu optionnel et questions ouvertes
+Le jeu doit être complet sans les éléments optionnels ; ils s'ajoutent seulement si le cœur est solide.
+Optionnel
+Élément
+ | Recommandation
+ | Chunks
+ | Inutiles pour un bâtiment fermé : on découpe par salle avec le streaming de niveaux d'Unreal, ce qui suffit pour les chargements
+ | Combat
+ | À garder minimal et fondé sur les propriétés (geler, coller, électrocuter), jamais sur une barre de vie ennemie
+ | Ennemis
+ | Peu nombreux et lisibles : robots de sécurité, nuisibles, échantillons échappés ; chacun est une énigme mobile
+ | 
+Questions ouvertes
+
+Ton général : mignon et poétique, sombre et inquiétant, ou un mélange des deux ?
+Plateforme cible : PC seul, ou aussi console ?
+Durée visée : 3 à 4 heures, ou une aventure de 10 heures et plus ?
+Le « build » est-il bien la construction par assemblage décrite plus haut, ou pensais-tu à un aménagement de base ?
+Le slime parle-t-il, communique-t-il par sons, ou reste-t-il muet ?
+Le créateur apparaît-il à l'écran, ou seulement par ses traces ?
+Titre du jeu.
+
+

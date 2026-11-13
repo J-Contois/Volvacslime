@@ -1,0 +1,15 @@
+{
+  "_comment": "Studio guard settings for Notion. mode \"export\": documents live in docs/ and the user imports exports/notion/ by hand (python Scripts/export_notion.py); every agent Notion write is refused, reads stay allowed. mode \"direct\": agents write in their own database; paste each database id (32 hex characters) below.",
+  "mode": "export",
+  "databases": {
+    "design_briefs": [],
+    "tech_specs": [],
+    "asset_sheets": [],
+    "planning": [],
+    "knowledge_base": [],
+    "ideas": [],
+    "levels": [],
+    "qa": [],
+    "marketing": []
+  }
+}
