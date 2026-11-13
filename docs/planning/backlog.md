@@ -37,6 +37,7 @@ Concept phase (now): T2, T6, T10, T11, T20, T28. Every other ticket of this sect
 - **Context:** PC is confirmed and Windows proposed; there is no minimum spec and no budget.
 - **Acceptance criteria:**
   - [ ] The bible lists the minimum spec, frame-time target, memory, texture and active-fragment budgets.
+  - [ ] Provisional asset budgets per category (main character, prop, environment piece: triangles, material slots, texture resolution), validated by the user, used to compare modeling proposals.
 
 ### T3 - Graphics config changes
 
@@ -273,6 +274,7 @@ Do not start before the related decisions are settled and T6 is reviewed. No Ble
 
 - **Context:** the mesh in `Content/_Volvacslime/Characters/Slime` is a test, not this character: model from the sheets. Dome 80 x 80 x 53 cm, pivot ground-centred, front +X, about 5000 triangles; fixed debris (screw, shard, EXP-07 label) and two floor drips as separate or baked details.
 - **Acceptance criteria:**
+  - [ ] Modeling proposal (single block or modular, with figures) validated by the user before modeling.
   - [ ] Mesh within 5000 triangles, correct scale and pivot in Unreal.
   - [ ] A test export imports without fixes; asset sheet with budget against actual.
 
@@ -284,6 +286,7 @@ Do not start before the related decisions are settled and T6 is reviewed. No Ble
 
 - **Context:** root to body_low, body_mid, body_top, eye_L, eye_R; squash and stretch by bones; three size steps (DEC-02) by scale or per-step proportions, plus a slight in-step swell.
 - **Acceptance criteria:**
+  - [ ] Modeling proposal for the rig and its parts validated by the user before work starts.
   - [ ] The rig deforms without tears in every pose of sheets 5 and 6.
   - [ ] Skeleton naming in the asset sheet; test pose export.
 
@@ -295,6 +298,7 @@ Do not start before the related decisions are settled and T6 is reviewed. No Ble
 
 - **Context:** no mouth at rest; the front face hollows into a funnel with ripples (aspirate, spit). Morph target "opening" driven by animation.
 - **Acceptance criteria:**
+  - [ ] Modeling proposal validated by the user before work starts.
   - [ ] Morph target imported in Unreal, value 0 to 1 driven from animation.
   - [ ] No artifacts at the angle used by the aspiration cone.
 

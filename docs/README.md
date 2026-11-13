@@ -55,7 +55,8 @@ Folders that do not exist yet are created with their first document.
 8. **Stable ids.** Decisions `DEC-NN`, tickets `TNN`, risks `RNN`, milestones `MN`, review items `CNN` (contradictions), `DNN` (sheet discrepancies), `NNN` (other discrepancies), `GNN` (gaps). Never renumber; retire an id with status Superseded.
 9. **File names** are lowercase kebab-case. Exceptions: `README.md`, `PROJECT_BIBLE.md`, `DEC-NN-<topic>.md`.
 10. **Living documents.** A change to a decision record or a design brief updates the living GDD (`design/gdd.md`) in the same change, in studio and in normal sessions alike. A code change that alters a documented system updates its technical spec and knowledge page.
-11. **Check before you finish.** Run `python Scripts/check_docs.py` after changing `docs/`; it checks titles, headers, summaries, status values, file names, links, ids, the decision log and the language, and must report 0 problems.
+11. **Modeling proposal.** Every asset sheet starts from a proposal (single block or modular, with figures) that the user decides; nobody models before the choice (`templates/asset-sheet.md`).
+12. **Check before you finish.** Run `python Scripts/check_docs.py` after changing `docs/`; it checks titles, headers, summaries, status values, file names, links, ids, the decision log and the language, and must report 0 problems.
 
 ## Status values
 

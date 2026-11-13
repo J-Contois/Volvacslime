@@ -79,6 +79,7 @@ Any idea that serves none of the pillars is rejected or parked.
 - Prefixes to add: `M_` and `MI_` materials, `SM_` static meshes, `T_` textures, `WBP_` widgets, `ABP_` animation Blueprints, `DT_` data tables, `DA_` data assets.
 - Folders by function: `Components`, `Interfaces`, `Blueprints/<Category>`, `Level`. Folders owned by other studio roles (Maps, Materials, VFX): rename `Level` or map it to `Maps`? TODO(question).
 - Commits: `type(scope): subject`, as in the history. Branches: the studio suggests `feature/<issue>-<slug>`; the current branch `feature-chaosBuilding` differs. TODO(question).
+- Modeling: before any model, the artist proposes a single block or a modular model (reusable parts assembled to build the whole, such as floor tiles), with figures, and the user decides each time. Format: the [asset sheet template](templates/asset-sheet.md).
 - The repository state is described in [the repository page](knowledge/repository-overview.md).
 
 ## Open questions
