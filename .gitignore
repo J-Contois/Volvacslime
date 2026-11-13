@@ -22,6 +22,9 @@ CLAUDE.local.md
 # Studio run log and hook state (local to each machine)
 .claude/studio/runs.jsonl
 .claude/studio/state/
+# Studio team build: rebuilt from .claude/studio/team.json by python ~/.claude/studio/tools/build.py --project <repo> --install
+.claude/studio/generated/
+.claude/agents/
 
 # Python bytecode cache (Scripts/)
 __pycache__/

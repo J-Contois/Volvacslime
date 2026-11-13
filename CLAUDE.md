@@ -16,7 +16,7 @@ Technical documents live in the repository; `docs/README.md` gives the folder of
 ## How we work
 
 - The user validates every idea, every phase change and every sensitive action.
-- The user writes in French: answer in French. Everything written to the repository (code, comments, docs, commits, issues, PRs) is in English.
+- Everything written to the repository (code, comments, docs, commits, issues, PRs) is in English.
 - Concept phase: work in Unreal is idea testing only; tests and prototypes are disposable and labeled as such.
 
 ## Hard rules
