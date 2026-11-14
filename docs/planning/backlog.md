@@ -38,6 +38,7 @@ Concept phase (now): T2, T6, T10, T11, T20, T28. Every other ticket of this sect
 - **Acceptance criteria:**
   - [ ] The bible lists the minimum spec, frame-time target, memory, texture and active-fragment budgets.
   - [ ] Provisional asset budgets per category (main character, prop, environment piece: triangles, material slots, texture resolution), validated by the user, used to compare modeling proposals.
+  - [ ] Main character: the budget also covers the translucent material (number of nested shells, translucent overdraw and refraction cost at the largest size step, material slots, texture resolution), not only triangles. Review of the slime sheets, 2026-11-14: the real cost of the slime is its layered translucent shader (sheet 2: 2 to 3 nested shells, Substrate), which grows with on-screen area, up to x2.5 = 200 cm.
 
 ### T3 - Graphics config changes
 
@@ -277,6 +278,14 @@ Do not start before the related decisions are settled and T6 is reviewed. No Ble
   - [ ] Modeling proposal (single block or modular, with figures) validated by the user before modeling.
   - [ ] Mesh within 5000 triangles, correct scale and pivot in Unreal.
   - [ ] A test export imports without fixes; asset sheet with budget against actual.
+  - [ ] Before the modeling proposal, these points from the 2026-11-14 sheet review are settled and recorded in the asset sheet:
+    - Triangle budget scope: the 5000 triangles cover the whole model (shells, eyes, debris, drips) or each shell; the number of nested shells and material slots (estimate: 3 at most).
+    - Frozen (faceted) and liquid (flat disk) states: extra meshes, or bones for the flattening plus the state shader for facets and frost (cheaper; decide before T21, not during T22).
+    - Fixed debris: label baked into the texture; screw and glass shard as small separate meshes (they float in the jelly).
+    - Drips: they hang below the dome base on sheet 1 while the pivot is on the ground; check they do not clip the floor.
+    - Stored objects seen through the translucent shells: limit on how many are shown, and sorting and refraction check.
+    - Eye reactions (narrowed, angry, closed, sheets 3 and 6) with only eye_L and eye_R bones: by bone scale or by material.
+  - Estimates to validate (not measures): body 2500 to 3500 triangles, total 5000 at most, 3 material slots at most.
 
 ### T22 - Slime rig and skinning
 
